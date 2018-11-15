@@ -39,7 +39,7 @@ int handle__pingreq(struct mosquitto *mosq)
 {
 	assert(mosq);
 #ifdef WITH_BROKER
-	log__printf(NULL, MOSQ_LOG_DEBUG, "Received PINGREQ from %s", mosq->id);
+	log__printf(NULL, MOSQ_LOG_PING, "Received PINGREQ from %s", mosq->id);
 #else
 	log__printf(mosq, MOSQ_LOG_DEBUG, "Client %s received PINGREQ", mosq->id);
 #endif
@@ -51,7 +51,7 @@ int handle__pingresp(struct mosquitto *mosq)
 	assert(mosq);
 	mosq->ping_t = 0; /* No longer waiting for a PINGRESP. */
 #ifdef WITH_BROKER
-	log__printf(NULL, MOSQ_LOG_DEBUG, "Received PINGRESP from %s", mosq->id);
+	log__printf(NULL, MOSQ_LOG_PING, "Received PINGRESP from %s", mosq->id);
 #else
 	log__printf(mosq, MOSQ_LOG_DEBUG, "Client %s received PINGRESP", mosq->id);
 #endif
