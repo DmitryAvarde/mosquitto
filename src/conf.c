@@ -1482,6 +1482,8 @@ int config__read_file_core(struct mosquitto__config *config, bool reload, struct
 						//----
 						}else if(!strcmp(token, "ping")){
 							cr->log_type |= MOSQ_LOG_PING;
+						}else if(!strcmp(token, "payload")){
+							cr->log_type |= MOSQ_LOG_PAYLOAD;
 						//----
 						}else if(!strcmp(token, "all")){
 							cr->log_type = INT_MAX;

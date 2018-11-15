@@ -62,6 +62,7 @@ extern "C" {
 #define MOSQ_LOG_UNSUBSCRIBE 0x40
 #define MOSQ_LOG_WEBSOCKETS 0x80
 #define MOSQ_LOG_PING 0x0100
+#define MOSQ_LOG_PAYLOAD 0x0200
 #define MOSQ_LOG_ALL 0xFFFF
 
 /* Error values */
