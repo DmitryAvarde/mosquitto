@@ -39,6 +39,7 @@ int handle__subscribe(struct mosquitto_db *db, struct mosquitto *context)
 	char *sub_mount;
 
 	if(!context) return MOSQ_ERR_INVAL;
+	printf("\n");
 	log__printf(NULL, MOSQ_LOG_DEBUG, "Received SUBSCRIBE from %s", context->id);
 	/* FIXME - plenty of potential for memory leaks here */
 
