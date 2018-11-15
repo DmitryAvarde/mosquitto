@@ -109,6 +109,7 @@ int send__publish(struct mosquitto *mosq, uint16_t mid, const char *topic, uint3
 						mapped_topic = topic_temp;
 					}
 					log__printf(NULL, MOSQ_LOG_DEBUG, "Sending PUBLISH to %s (d%d, q%d, r%d, m%d, '%s', ... (%ld bytes))", mosq->id, dup, qos, retain, mid, mapped_topic, (long)payloadlen);
+					//log__printf(NULL, MOSQ_LOG_DEBUG, "> payload: '%s'", (char*)payload);
 					G_PUB_BYTES_SENT_INC(payloadlen);
 					rc =  send__real_publish(mosq, mid, mapped_topic, payloadlen, payload, qos, retain, dup);
 					mosquitto__free(mapped_topic);
