@@ -59,6 +59,28 @@ void sys_tree__init(struct mosquitto_db *db)
 	db__messages_easy_queue(db, NULL, "$SYS/broker/chen", SYS_TREE_QOS, strlen(buf2), buf2, 1);
 }
 
+void chen_gen_list(struct mosquitto_db *db)
+{
+	//chen list
+	const int buf_len = 1024*100;
+	static char buf2[buf_len+20];
+	int off=0;
+	struct mosquitto *context, *ctxt_tmp;
+	printf(" --- list ST:\n");
+	
+	int n = 1;
+	//HASH_ITER(hh_id, db->contexts_by_id, context, ctxt_tmp){ //all clients, record in db 
+	HASH_ITER(hh_id, db->contexts_by_sock, context, ctxt_tmp){ //online clients
+		printf(" %s\n", context->id);
+		if(off<buf_len)
+			off += snprintf(buf2+off, buf_len-off, "\n%d - %s", n++, context->id);
+	}
+	//db__messages_easy_queue(db, NULL, "$SYS/broker/chen_list", SYS_TREE_QOS, strlen(buf2), buf2, 1);
+	db__messages_easy_queue(db, NULL, "$SYS/broker/chen_list", SYS_TREE_QOS, strlen(buf2), buf2, 0);
+	printf(" --- list END\n");
+
+}
+
 static void sys_tree__update_clients(struct mosquitto_db *db, char *buf)
 {
 	static unsigned int client_count = -1;
@@ -71,6 +93,7 @@ static void sys_tree__update_clients(struct mosquitto_db *db, char *buf)
 
 	count_total = HASH_CNT(hh_id, db->contexts_by_id);
 	count_by_sock = HASH_CNT(hh_sock, db->contexts_by_sock);
+
 
 	if(client_count != count_total){
 		client_count = count_total;
