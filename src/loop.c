@@ -659,6 +659,8 @@ void do_disconnect(struct mosquitto_db *db, struct mosquitto *context)
 			}else{
 				log__printf(NULL, MOSQ_LOG_NOTICE, "Client %s disconnected.", id);
 			}
+			
+			chen_gen_state(db, id, 0); //chen state
 		}
 #ifdef WITH_EPOLL
 		if (context->sock != INVALID_SOCKET && epoll_ctl(db->epollfd, EPOLL_CTL_DEL, context->sock, &ev) == -1) {

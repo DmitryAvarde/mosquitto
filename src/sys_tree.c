@@ -80,6 +80,13 @@ void chen_gen_list(struct mosquitto_db *db)
 	printf(" --- list END\n");
 
 }
+void chen_gen_state(struct mosquitto_db *db, char *id, int online)
+{
+	char buf2[128];
+	snprintf(buf2, 127, "$SYS/broker/chen_state/%s", id);
+	char payload = online?'1':'0';
+	db__messages_easy_queue(db, NULL, buf2, SYS_TREE_QOS, 1, &payload, 1);
+}
 
 static void sys_tree__update_clients(struct mosquitto_db *db, char *buf)
 {
