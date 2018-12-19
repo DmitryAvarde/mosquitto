@@ -63,7 +63,7 @@ void chen_gen_list(struct mosquitto_db *db)
 {
 	//chen list
 	const int buf_len = 1024*100;
-	static char buf2[buf_len+20];
+	char buf2[buf_len+20];
 	int off=0;
 	struct mosquitto *context, *ctxt_tmp;
 	printf(" --- list ST:\n");
